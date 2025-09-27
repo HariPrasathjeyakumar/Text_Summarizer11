@@ -7,58 +7,71 @@ from transformers import pipeline
 st.set_page_config(
     page_title="📝 AI Text Summarizer",
     page_icon="📝",
-    layout="wide",
+    layout="centered",
     initial_sidebar_state="expanded"
 )
 
 # ==========================
-# Custom CSS for styling
+# Custom CSS for dark theme
 # ==========================
 st.markdown("""
     <style>
-    /* Background */
+    /* App background */
     .stApp {
-        background-color: #f5f5f5;
+        background-color: #1f2937;
+        color: #f9fafb;
     }
 
     /* Title */
     h1 {
-        color: #1f2937;
+        color: #facc15;
+        text-align: center;
+        font-size: 40px;
+    }
+
+    /* Description */
+    .css-1d391kg p {
+        color: #e5e7eb;
+        font-size: 18px;
         text-align: center;
     }
 
     /* Input textarea */
     .stTextArea textarea {
-        background-color: #ffffff;
+        background-color: #374151;
+        color: #f9fafb;
         border-radius: 15px;
         padding: 15px;
         font-size: 16px;
     }
 
-    /* Summarize button */
+    /* Button */
     .stButton>button {
-        background-color: #4CAF50;
-        color:white;
-        font-size:18px;
-        height:50px;
-        width:100%;
-        border-radius:15px;
-        border:none;
+        background-color: #f59e0b;
+        color: #1f2937;
+        font-size: 18px;
+        height: 50px;
+        width: 100%;
+        border-radius: 15px;
+        border: none;
+        font-weight: bold;
     }
 
-    /* Summary output */
+    /* Summary box */
     .summary-box {
-        background-color: #ffffff;
+        background-color: #111827;
+        color: #f9fafb;
         padding: 20px;
         border-radius: 15px;
-        box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
         font-size: 16px;
-        color: #111827;
+        line-height: 1.6;
     }
 
     /* Sidebar */
     .sidebar .sidebar-content {
-        background-color: #e0f2fe;
+        background-color: #374151;
+        color: #f9fafb;
         border-radius: 15px;
         padding: 15px;
     }
@@ -70,10 +83,8 @@ st.markdown("""
 # ==========================
 st.title("📝 AI Text Summarizer")
 st.markdown(
-    """
-    Paste any paragraph below, and our AI will generate a concise summary.
-    Powered by **BART Large CNN** from Hugging Face Transformers.
-    """, unsafe_allow_html=True
+    "Paste any paragraph below, and our AI will generate a concise summary powered by **BART Large CNN**.",
+    unsafe_allow_html=True
 )
 
 # ==========================
@@ -113,8 +124,8 @@ if st.button("Generate Summary"):
 st.sidebar.header("About")
 st.sidebar.info(
     """
-    - Built with **Streamlit** and **Hugging Face Transformers**
-    - Model: **facebook/bart-large-cnn**
-    - Developed by You
+    - Built with **Streamlit** and **Hugging Face Transformers**  
+    - Model: **facebook/bart-large-cnn**  
+    - Dark theme for better readability  
     """
 )
