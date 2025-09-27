@@ -5,9 +5,9 @@ from transformers import pipeline
 # Page configuration
 # ==========================
 st.set_page_config(
-    page_title="AI Text Summarizer",
+    page_title="📝 AI Text Summarizer",
     page_icon="📝",
-    layout="centered",
+    layout="wide",
     initial_sidebar_state="expanded"
 )
 
@@ -16,28 +16,51 @@ st.set_page_config(
 # ==========================
 st.markdown("""
     <style>
-    .main {
-        background-color: #f0f2f6;
-        padding: 20px;
-        border-radius: 10px;
+    /* Background */
+    .stApp {
+        background-color: #f5f5f5;
     }
+
+    /* Title */
+    h1 {
+        color: #1f2937;
+        text-align: center;
+    }
+
+    /* Input textarea */
+    .stTextArea textarea {
+        background-color: #ffffff;
+        border-radius: 15px;
+        padding: 15px;
+        font-size: 16px;
+    }
+
+    /* Summarize button */
     .stButton>button {
         background-color: #4CAF50;
         color:white;
-        font-size:16px;
-        height:45px;
+        font-size:18px;
+        height:50px;
         width:100%;
-        border-radius:10px;
+        border-radius:15px;
         border:none;
     }
-    .stTextArea textarea {
+
+    /* Summary output */
+    .summary-box {
         background-color: #ffffff;
-        border-radius:10px;
-        padding:10px;
-        font-size:16px;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+        font-size: 16px;
+        color: #111827;
     }
-    h1 {
-        color: #333333;
+
+    /* Sidebar */
+    .sidebar .sidebar-content {
+        background-color: #e0f2fe;
+        border-radius: 15px;
+        padding: 15px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -50,7 +73,7 @@ st.markdown(
     """
     Paste any paragraph below, and our AI will generate a concise summary.
     Powered by **BART Large CNN** from Hugging Face Transformers.
-    """
+    """, unsafe_allow_html=True
 )
 
 # ==========================
@@ -58,15 +81,14 @@ st.markdown(
 # ==========================
 @st.cache_resource
 def load_model():
-    summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
-    return summarizer
+    return pipeline("summarization", model="facebook/bart-large-cnn")
 
 summarizer = load_model()
 
 # ==========================
-# User input
+# Input
 # ==========================
-text_input = st.text_area("Enter text here:", height=200)
+text_input = st.text_area("Enter text here:", height=250)
 
 # ==========================
 # Summarize button
@@ -83,15 +105,15 @@ if st.button("Generate Summary"):
                 text_input, max_length=max_len, min_length=min_len, do_sample=False
             )
         st.subheader("✅ Summary")
-        st.markdown(f"<div style='background-color:#ffffff;padding:15px;border-radius:10px;'>{summary[0]['summary_text']}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='summary-box'>{summary[0]['summary_text']}</div>", unsafe_allow_html=True)
 
 # ==========================
-# Sidebar (Optional)
+# Sidebar
 # ==========================
 st.sidebar.header("About")
 st.sidebar.info(
     """
-    - Built with Streamlit and Hugging Face Transformers
+    - Built with **Streamlit** and **Hugging Face Transformers**
     - Model: **facebook/bart-large-cnn**
     - Developed by You
     """
